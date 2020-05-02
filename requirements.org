@@ -1,0 +1,4 @@
+* Expectations (MVP)
+  1) A list of chores to be done periodically.
+  2) Ability to tick the chores that have been done.
+  3) Show who did the chores.

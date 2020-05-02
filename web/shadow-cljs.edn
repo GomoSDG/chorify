@@ -1,0 +1,17 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src/dev" "src/main" "src/test"]
+
+ :dependencies
+ []
+
+ :builds
+ {:app {:target     :browser
+        :output-dir "public/js"
+        :asset-path "/js"
+        :modules    {:base {:entries [chorify.core]}}
+
+
+        :devtools {:preloads  []
+                   :http-port 8021
+                   :http-root "public"}}}}
