@@ -1,0 +1,16 @@
+{
+  "name": "chorify",
+  "version": "1.0.0",
+  "description": "Shared Chore List App",
+  "main": "index.js",
+  "dependencies": {
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

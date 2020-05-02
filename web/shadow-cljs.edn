@@ -2,16 +2,14 @@
 {:source-paths
  ["src/dev" "src/main" "src/test"]
 
- :dependencies
- []
+ :dependencies [[reagent/reagent "0.10.0"]]
 
- :builds
- {:app {:target     :browser
-        :output-dir "public/js"
-        :asset-path "/js"
-        :modules    {:base {:entries [chorify.core]}}
+ :builds {:app {:target     :browser
+                :output-dir "public/js"
+                :asset-path "/js"
+                :modules    {:main {:entries [chorify.core]}}
 
 
-        :devtools {:preloads  []
-                   :http-port 8021
-                   :http-root "public"}}}}
+                :devtools {:preloads  []
+                           :http-port 8021
+                           :http-root "public"}}}}
