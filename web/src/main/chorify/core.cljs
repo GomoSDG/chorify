@@ -1,20 +1,18 @@
 (ns chorify.core
   (:require [reagent.core :as r]
-            [reagent.dom :as rdom]))
+            [reagent.dom :as rdom]
+            [chorify.components.chores :refer [chore-panel]]
+            [chorify.components.login :refer [login]]
+            [chorify.layouts :refer [main-layout]]
+            [accountant.core :as accountant]
+            [chorify.routes :as routes]))
+
+(accountant/configure-navigation!
+ {:nav-handler routes/go!
+  :path-exists? routes/path-exists?})
 
 (declare main
-         chore-input
-         chore-item
-         chore-panel)
-
-(defn add-chore
-  [ls tk]
-  (js/console.log "Added chore")
-  (conj ls {:name tk
-            :id (str "gomosdg-" (rand-int 10000) "-" (rand-int 10000))
-            :completed false}))
-
-(defonce chores (r/atom []))
+         pages)
 
 (defn ^:dev/after-load init
   []
@@ -26,37 +24,7 @@
 (defn main
   []
   [:<>
-   [chore-panel]])
+   [main-layout (@routes/current-page pages)]])
 
-(defn chore-panel
-  []
-  [:nav.panel
-   [:p.panel-heading
-    "Chorify"]
-   [:div.panel-block
-    [:p.control [chore-input]]]
-   (for [chore @chores]
-     [:div.panel-block
-      [chore-item chore]])])
-
-(defn chore-item
-  "List item that displays chores"
-  [chore]
-  (js/console.log (clj->js chore))
-  [:label.checkbox
-   [:input {:type "checkbox"
-            :checked (:completed (:completed chore))}]
-   (:name chore)])
-
-(defn chore-input
-  "Takes name of chore and adds it enter is pressed"
-  []
-  (let [chore-name (r/atom "")]
-    (fn [{:keys [id class]}]
-      [:input.input {:type        "text"
-               :placeholder "What to do?"
-               :value       @chore-name
-               :on-change   #(do (reset! chore-name (-> % .-target .-value)))
-               :on-key-down #(when (= "Enter" (.-key %))
-                               (swap! chores add-chore @chore-name)
-                               (reset! chore-name ""))}])))
+(def pages {:home chore-panel
+            :login login})
